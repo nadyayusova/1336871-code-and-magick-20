@@ -9,26 +9,38 @@ var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template');
+var similarWizardContent = similarWizardTemplate.content.querySelector('.setup-similar-item');
 var similarListElement = document.querySelector('.setup-similar-list');
 var setupWindow = document.querySelector('.setup');
 var similarWindow = document.querySelector('.setup-similar');
 
+
+var getRandomInteger = function (num) {
+  return Math.floor(Math.random() * num);
+};
+
 var getRandomElement = function (arr) {
-  var randomIndex = Math.floor(Math.random() * arr.length);
+  var randomIndex = getRandomInteger(arr.length);
 
   return arr[randomIndex];
 };
 
-var generateWizard = function () {
-  return {
-    name: getRandomElement(FIRST_NAMES) + ' ' + getRandomElement(SECOND_NAMES),
-    coatColor: getRandomElement(COAT_COLORS),
-    eyesColor: getRandomElement(EYES_COLORS)
-  };
+var generateWizards = function () {
+  var wizards = [];
+
+  for (var i = 0; i < NUMBER_OF_WIZARDS; i++) {
+    wizards.push({
+      name: getRandomElement(FIRST_NAMES) + ' ' + getRandomElement(SECOND_NAMES),
+      coatColor: getRandomElement(COAT_COLORS),
+      eyesColor: getRandomElement(EYES_COLORS)
+    });
+  }
+
+  return wizards;
 };
 
 var renderWizard = function (wizard) {
-  var wizardElement = similarWizardTemplate.content.querySelector('.setup-similar-item').cloneNode(true);
+  var wizardElement = similarWizardContent.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
@@ -39,9 +51,10 @@ var renderWizard = function (wizard) {
 
 var createWizardsGroup = function () {
   var fragment = document.createDocumentFragment();
+  var wizards = generateWizards();
 
-  for (var i = 0; i < NUMBER_OF_WIZARDS; i++) {
-    fragment.appendChild(renderWizard(generateWizard()));
+  for (var i = 0; i < wizards.length; i++) {
+    fragment.appendChild(renderWizard(wizards[i]));
   }
 
   return fragment;
