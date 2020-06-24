@@ -7,9 +7,10 @@ var SECOND_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Ва
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-var MIN_NAME_LENGTH = 2;
-var MAX_NAME_LENGTH = 25;
-
+var NameLengthRange = {
+  MIN_NAME_LENGTH: 2,
+  MAX_NAME_LENGTH: 25
+};
 
 var similarWizardTemplate = document.querySelector('#similar-wizard-template');
 var similarWizardContent = similarWizardTemplate.content.querySelector('.setup-similar-item');
@@ -87,10 +88,10 @@ var onInvalidNameInput = function () {
 var onNameInput = function () {
   var valueLength = userNameInput.value.length;
 
-  if (valueLength < MIN_NAME_LENGTH) {
-    userNameInput.setCustomValidity('Ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
-  } else if (valueLength > MAX_NAME_LENGTH) {
-    userNameInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
+  if (valueLength < NameLengthRange.MIN_NAME_LENGTH) {
+    userNameInput.setCustomValidity('Ещё ' + (NameLengthRange.MIN_NAME_LENGTH - valueLength) + ' симв.');
+  } else if (valueLength > NameLengthRange.MAX_NAME_LENGTH) {
+    userNameInput.setCustomValidity('Удалите лишние ' + (valueLength - NameLengthRange.MAX_NAME_LENGTH) + ' симв.');
   } else {
     userNameInput.setCustomValidity('');
   }
