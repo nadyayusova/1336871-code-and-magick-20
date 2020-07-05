@@ -17,15 +17,16 @@
     return Math.floor(Math.random() * num);
   };
 
+  var getRandomElement = function (arr) {
+    var randomIndex = getRandomInteger(arr.length);
+
+    return arr[randomIndex];
+  };
+
   window.setup = {
     COAT_COLORS: COAT_COLORS,
     EYES_COLORS: EYES_COLORS,
-
-    getRandomElement: function (arr) {
-      var randomIndex = getRandomInteger(arr.length);
-
-      return arr[randomIndex];
-    }
+    getRandomElement: getRandomElement
   };
 
   var generateWizards = function () {
@@ -33,10 +34,10 @@
 
     for (var i = 0; i < NUMBER_OF_WIZARDS; i++) {
       wizards.push({
-        name: window.setup.getRandomElement(FIRST_NAMES) + ' ' +
-              window.setup.getRandomElement(SECOND_NAMES),
-        coatColor: window.setup.getRandomElement(COAT_COLORS),
-        eyesColor: window.setup.getRandomElement(EYES_COLORS)
+        name: getRandomElement(FIRST_NAMES) + ' ' +
+              getRandomElement(SECOND_NAMES),
+        coatColor: getRandomElement(COAT_COLORS),
+        eyesColor: getRandomElement(EYES_COLORS)
       });
     }
 

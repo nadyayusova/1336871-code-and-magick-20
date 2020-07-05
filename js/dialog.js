@@ -13,10 +13,7 @@
   var setupForm = setupWindow.querySelector('.setup-wizard-form');
   var userNameInput = document.querySelector('.setup-user-name');
   var dialogHandle = setupWindow.querySelector('.upload');
-  var setupStartingPosition = { // взято из css
-    left: '50%',
-    top: '80px'
-  };
+
 
   var onPopupCloseClick = function () {
     closePopup();
@@ -75,8 +72,7 @@
   };
 
   var setSetupPosition = function () {
-    setupWindow.style.left = setupStartingPosition.left;
-    setupWindow.style.top = setupStartingPosition.top;
+    setupWindow.removeAttribute('style');
   };
 
   var openPopup = function () {
