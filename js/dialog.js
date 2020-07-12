@@ -71,6 +71,13 @@
     }
   };
 
+  var onPopupSubmit = function (evt) {
+    window.backend.save(new FormData(setupForm), function () {
+      setupWindow.classList.add('hidden');
+    }, window.setup.onError);
+    evt.preventDefault();
+  };
+
   var setSetupPosition = function () {
     setupWindow.removeAttribute('style');
   };
@@ -78,11 +85,13 @@
   var openPopup = function () {
     setupWindow.classList.remove('hidden');
     setSetupPosition();
+    window.setup.showSimilarWizards();
 
     document.addEventListener('keydown', onPopupEscPress);
     setupClose.addEventListener('keydown', onPopupEnterPress);
     setupClose.addEventListener('click', onPopupCloseClick);
     setupForm.addEventListener('click', onSetupPlayerClick);
+    setupForm.addEventListener('submit', onPopupSubmit);
     userNameInput.addEventListener('invalid', onInvalidNameInput);
     userNameInput.addEventListener('input', onNameInput);
     dialogHandle.addEventListener('mousedown', window.move.onHandleMousedown);
@@ -95,9 +104,15 @@
     setupClose.removeEventListener('keydown', onPopupEnterPress);
     setupClose.removeEventListener('click', onPopupCloseClick);
     setupForm.removeEventListener('click', onSetupPlayerClick);
+    setupForm.removeEventListener('submit', onPopupSubmit);
     userNameInput.removeEventListener('invalid', onInvalidNameInput);
     userNameInput.removeEventListener('input', onNameInput);
     dialogHandle.removeEventListener('mousedown', window.move.onHandleMousedown);
+
+    var node = document.querySelector('.error-message');
+    if (node) {
+      node.remove();
+    }
   };
 
   setupOpen.addEventListener('click', function () {
