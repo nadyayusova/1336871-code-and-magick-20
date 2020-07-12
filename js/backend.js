@@ -1,11 +1,13 @@
 'use strict';
 
 (function () {
-  var URLTo = 'https://javascript.pages.academy/code-and-magick';
-  var URLFrom = URLTo + '/data';
   var TIMEOUT_IN_MS = 10000;
   var StatusCode = {
     OK: 200
+  };
+  var URLs = {
+    URLTo: 'https://javascript.pages.academy/code-and-magick',
+    URLFrom: 'https://javascript.pages.academy/code-and-magick/data'
   };
 
   var prepareXhr = function (onLoad, onError) {
@@ -33,14 +35,14 @@
   var load = function (onLoad, onError) {
     var xhr = prepareXhr(onLoad, onError);
 
-    xhr.open('GET', URLFrom);
+    xhr.open('GET', URLs.URLFrom);
     xhr.send();
   };
 
   var save = function (data, onLoad, onError) {
     var xhr = prepareXhr(onLoad, onError);
 
-    xhr.open('POST', URLTo);
+    xhr.open('POST', URLs.URLTo);
     xhr.send(data);
   };
 
